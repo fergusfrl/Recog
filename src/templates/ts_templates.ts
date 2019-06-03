@@ -13,9 +13,11 @@ export const functional = (componentName: string): string => `
 export const functionalState = (componentName: string): string => `
     import * as React from 'react';
 
+    interface I${componentName} {};
+
     const ${componentName}: React.FC = () => {
-        const [state, setState] = useState({});
-        return(
+        const [state, setState] = React.useState<I${componentName}>({});
+        return (
             <div>
                 functional useState component
             </div>

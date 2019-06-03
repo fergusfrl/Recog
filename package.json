@@ -9,7 +9,9 @@
   },
   "scripts": {
     "start": "npm run build && node dist/index.js",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "test": "jest",
+    "test-with-coverage": "jest --coverage"
   },
   "keywords": [
     "React",
@@ -23,7 +25,10 @@
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
+    "@types/jest": "^24.0.13",
     "@types/node": "^12.0.4",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "tslint-config-airbnb": "^5.11.1"
   }

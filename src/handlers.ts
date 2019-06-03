@@ -12,7 +12,7 @@ export const createReactComponent = (componentName: string, path: string, option
         component = options.state ? js_functionalState(componentName) : js_functional(componentName);
     }
     
-    fs.writeFile(`${path}/${componentName}.${options.typescript ? 'ts' : 'js'}`, component, () => {
+    fs.writeFile(`${path}/${componentName}.${options.typescript ? 'tsx' : 'jsx'}`, component, () => {
         console.log(`${componentName} Generated`);
     });
 }

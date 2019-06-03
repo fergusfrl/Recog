@@ -4,8 +4,20 @@
 <br/>
 
 ## Installation
-```
-$ npm install -g recog
+```python
+# checkout recog
+git checkout https://github.com/fergusfrl/recog.git
+
+# install dependencies
+npm install -g
+
+# transpile typescript
+npm run build
+
+# set symlink
+npm link
+
+# ready to go!
 ```
 
 <br/>

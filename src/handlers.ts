@@ -13,7 +13,7 @@ export const createReactComponent = (componentName: string, path: string, option
     }
     
     fs.writeFile(`${path}/${componentName}.${options.typescript ? 'ts' : 'js'}`, component, () => {
-        console.log("New Component Generated");
+        console.log(`${componentName} Generated`);
     });
 }
 

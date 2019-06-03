@@ -2,7 +2,7 @@
 
 import commander from 'commander';
 import { InterfaceCLI } from './types';
-import { createReactComponent } from './handlers';
+import { createComponent } from './handlers';
 
 class Startup {
     cli: InterfaceCLI;
@@ -18,7 +18,7 @@ class Startup {
             .option('-s, --state', 'generate with state')
             .option('-t, --typescript', 'generate as typescript')
             .action(function(componentName, path, cmd) {
-                createReactComponent(componentName, path, {
+                createComponent(componentName, path, {
                     state: cmd.state || false,
                     typescript: cmd.typescript || false
                 });

@@ -4,7 +4,7 @@
 <br/>
 
 ## Installation
-```python
+```bash
 # checkout recog
 git checkout https://github.com/fergusfrl/recog.git
 
@@ -23,7 +23,7 @@ npm link
 <br/>
 
 ## Usage
-```
+```bash
 recog new <ComponentName> <DirectoryPath> [options]
 ```
 options:
@@ -38,16 +38,30 @@ Generate a React component with props
 
 ## Examples
 ### Basic Component
+```bash
+$ recog new TestComponent ./components -s -t -p
 ```
-$ recog new TestComponent ./
-```
+```javascript
+/* TestComponent.tsx */
 
-### Stateful Component
-```
-$ recog new TestComponent ./ -s
-```
+import React, { useState } from 'react';
 
-### Typescript Component
-```
-$ recog new TestComponent ./ -s -t
+interface IStateTestComponent {
+    // state interface
+}
+
+interface IPropsTestComponent {
+    // props interface
+}
+
+const TestComponent: React.FC = (props: IPropsTestComponent) => {
+    const [state, setState] = useState<IStateTestComponent>({});
+    return (
+        <div>
+            TestComponent
+        </div>
+    );
+};
+
+export default TestComponent;
 ```

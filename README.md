@@ -31,6 +31,8 @@ options:
 Generates a new stateful React component
 - **-t, --typescript**<br/>
 Generates a new Typescript React component
+- **-p, --props**<br/>
+Generate a React component with props
 
 <br/>
 

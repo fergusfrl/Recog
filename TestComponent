@@ -1,0 +1,20 @@
+
+    import React, { useState } from 'react';
+    
+    
+        
+    interface IStateTestComponent {
+        // state
+    }
+        
+    
+    const TestComponent = () => {
+        const [state, setState] = useState<IStateTestComponent>({});
+        return (
+        <div>
+            TestComponent
+        </div>
+    );
+    };
+
+    export default TestComponent;

@@ -1,0 +1,1 @@
+export const removeTemplating = (str: string) => str.replace(/\s/g, '');

@@ -3,6 +3,7 @@ import Imports from './generators/imports';
 import Interface from './generators/interface';
 import Props from './generators/props';
 import PreContent from './generators/precontent';
+import Content from './generators/content';
 import PostContent from './generators/postcontent';
 import { IComponentOptions, IDirectoryOptions } from './types';
 import { jestTemplate, scssTemplate } from './templates';
@@ -25,9 +26,10 @@ export const generateComponent = (componentName: string, path: string, options: 
     const interf = new Interface(typescript, state, props).getInterface(componentName);
     const prop = new Props(props, typescript).getProps(componentName);
     const precontent = new PreContent(state, typescript).getPreContent(componentName);
+    const content = new Content(state).getContent(componentName);
     const postContent = new PostContent(state).getPostContent();
 
-    const component: string = generateComponentString(imports, interf, prop, precontent, postContent, componentName);
+    const component: string = generateComponentString(imports, interf, prop, precontent, content, postContent, componentName);
 
     writeToFile(typescript ? 'tsx' : 'jsx', path, componentName, component);
 }
@@ -85,14 +87,14 @@ const writeToFile = (extension: string, path: string, componentName: string, com
  * @param postContent 
  * @param componentName 
  */
-const generateComponentString = (imports: string, interf: string, props: string, preContent: string, postContent: string, componentName: string): string => `
-    ${imports}
-    ${interf}
-    const ${componentName}${props} => ${preContent}
-        <div className="${componentName.toLowerCase()}">
-            ${componentName}
-        </div>
-    ${postContent};
+const generateComponentString = (imports: string, interf: string, props: string, preContent: string, content: string, postContent: string, componentName: string): string => `
+${imports}
 
-    export default ${componentName};
+${interf}
+
+const ${componentName}${props} => ${preContent}
+    ${content}
+${postContent};
+
+export default ${componentName};
 `;

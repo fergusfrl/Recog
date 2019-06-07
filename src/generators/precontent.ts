@@ -6,9 +6,14 @@ class PreContent {
         this.isTypescript = isTypescript;
     }
 
-    public getPreContent = (name: string) => !this.hasState ? '(' : `{
+    public getPreContent = (name: string) => {
+        if (!this.hasState) {
+            return '(';
+        }
+        return `{
         const [state, setState] = useState${this.isTypescript ? `<IState${name}>` : ''}({});
-        return (`;
+        return (`
+    }
 }
 
 export default PreContent;

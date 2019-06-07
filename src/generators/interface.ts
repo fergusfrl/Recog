@@ -8,16 +8,26 @@ class Interface {
         this.hasProps = hasProps;
     }
 
-    public getInterface = (name: string) => !this.isTypescript ? '' : `
-        ${!this.hasState ? '' : `
-    interface IState${name} {
-        // state
-    }`}
-        ${!this.hasProps ? '' : `
-    interface IProps${name} {
-        // props
-    }`}
-    `;
+    private generateInterface = (name: string, type: string): string => {
+        return `interface I${type}${name} {
+    // ${type}
+}`
+    }
+
+    public getInterface = (name: string): string => {
+        let result = '';
+        if (!this.isTypescript) return result;
+
+        if (this.hasProps) {
+            result = this.generateInterface(name, 'Props');
+        }
+        if (this.hasState) {
+            result = result + this.hasProps ? '\n' : '';
+            result = result + this.generateInterface(name, 'State');
+        }
+
+        return result;
+    }
 
 }
 

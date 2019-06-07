@@ -4,7 +4,7 @@ class PostContent {
         this.hasState = hasState;
     }
 
-    public getPostContent = () => !this.hasState ? ')' : `);
+    public getPostContent = () => !this.hasState ? ')' : `\t);
     }`;
 }
 

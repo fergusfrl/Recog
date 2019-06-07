@@ -14,7 +14,7 @@ class Interface {
 
     public getInterface = (name: string): string => {
         let result = '';
-        if (!this.isTypescript) return result;
+        if (!this.isTypescript || (!this.hasProps && !this.hasState)) return result;
 
         if (this.hasProps) {
             result = this.generateInterface(name, 'Props');
@@ -30,7 +30,7 @@ class Interface {
                 this.generateInterface(name, 'State');
         }
 
-        return result;
+        return `\n${result}\n`;
     }
 
 }

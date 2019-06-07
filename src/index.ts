@@ -35,11 +35,11 @@ class CommandLineInterface {
             .command('dir <ComponentName> <Path>')
             .description('generates a new directory with a react component')
             .option('-j, --jest', 'create with jest file')
-            .option('-c, --scss', 'create with scss file')
+            .option('-c, --css', 'create with css file')
             .action((componentName, path, cmd) => {
                 generateDirectory(componentName, path, {
                     jest: cmd.jest,
-                    scss: cmd.scss
+                    css: cmd.css
                 });
             });
 

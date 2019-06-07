@@ -6,7 +6,7 @@ import PreContent from './generators/precontent';
 import Content from './generators/content';
 import PostContent from './generators/postcontent';
 import { IComponentOptions, IDirectoryOptions } from './types';
-import { jestTemplate, scssTemplate } from './templates';
+import { jestTemplate, cssTemplate } from './templates';
 
 /**
  * Handles options to generte string and create file
@@ -16,13 +16,13 @@ import { jestTemplate, scssTemplate } from './templates';
  * @param options 
  */
 export const generateComponent = (componentName: string, path: string, options: IComponentOptions): void => {
-    let { state, typescript, props, importScss }: IComponentOptions = options;
+    let { state, typescript, props, importCss }: IComponentOptions = options;
     state = state || false;
     typescript = typescript || false;
     props = props || false;
-    importScss = importScss || false;
+    importCss = importCss || false;
 
-    const imports = new Imports(state, importScss ? [`import './${componentName.toLowerCase()}.scss'`] : []).getImports();
+    const imports = new Imports(state, importCss ? [`import './${componentName.toLowerCase()}.scss'`] : []).getImports();
     const interf = new Interface(typescript, state, props).getInterface(componentName);
     const prop = new Props(props, typescript).getProps(componentName);
     const precontent = new PreContent(state, typescript).getPreContent(componentName);
@@ -42,19 +42,19 @@ export const generateComponent = (componentName: string, path: string, options: 
  * @param options 
  */
 export const generateDirectory = (componentName: string, path: string, options: IDirectoryOptions): void => {
-    let { jest, scss } = options;
+    let { jest, css } = options;
     path = path + `/${componentName}`;
     jest = jest || false;
-    scss = scss || false;
+    css = css || false;
 
     fs.mkdir(path, { recursive: true }, (err) => {
         if (err) {
             console.log('Something went wrong:', err);
         } else {
             console.log(`${componentName} directory was successfully generated`);
-            generateComponent(componentName, path, { importScss: scss });
+            generateComponent(componentName, path, { importCss: css });
             if (jest) writeToFile('test.js', path, componentName, jestTemplate(componentName));
-            if (scss) writeToFile('scss', path, componentName.toLowerCase(), scssTemplate(componentName));
+            if (css) writeToFile('css', path, componentName.toLowerCase(), cssTemplate(componentName));
         }
     });
 }

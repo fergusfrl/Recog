@@ -5,7 +5,7 @@ test('should return a react component', () => {
 });
 `;
 
-export const scssTemplate = (name: string): string => `.${name.toLowerCase()} {
+export const cssTemplate = (name: string): string => `.${name.toLowerCase()} {
     // color: red;
 }
 `;

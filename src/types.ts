@@ -4,12 +4,12 @@ export interface IComponentOptions {
     state?: boolean,
     typescript?: boolean,
     props?: boolean,
-    importScss?: boolean
+    importCss?: boolean
 }
 
 export interface IDirectoryOptions {
     jest?: boolean,
-    scss?: boolean
+    css?: boolean
 }
 
 export interface InterfaceCLI extends commander.Command, IComponentOptions, IDirectoryOptions {

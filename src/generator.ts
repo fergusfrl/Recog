@@ -88,7 +88,7 @@ const writeToFile = (extension: string, path: string, componentName: string, com
 const generateComponentString = (imports: string, interf: string, props: string, preContent: string, postContent: string, componentName: string): string => `
     ${imports}
     ${interf}
-    const ${componentName}${props}) => ${preContent}
+    const ${componentName}${props} => ${preContent}
         <div className="${componentName.toLowerCase()}">
             ${componentName}
         </div>

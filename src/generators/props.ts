@@ -1,3 +1,5 @@
+const componentType: string = ': React.FC';
+
 class Props {
     hasProps: boolean;
     isTypescript: boolean;
@@ -6,7 +8,7 @@ class Props {
         this.isTypescript = isTypescript;
     }
 
-    getProps = (name: string) => !this.hasProps ? '' : `props${this.isTypescript ? `: IProps${name}` : ''}`;
+    getProps = (name: string) => (this.isTypescript ? componentType : '') + ' = (' + (!this.hasProps ? '' : ('props' + (this.isTypescript ? `: IProps${name}` : '')));
 }
 
 export default Props;

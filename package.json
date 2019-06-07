@@ -2,10 +2,13 @@
   "name": "recog",
   "version": "1.0.0",
   "description": "Command Line Interface for generating React Components",
-  "main": "./dist/index.js",
+  "main": "./dist/src/index.js",
   "preferGlobal": true,
   "bin": {
-    "recog": "./dist/index.js"
+    "recog": "./dist/src/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "start": "npm run build && node dist/index.js",

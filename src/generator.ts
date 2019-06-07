@@ -4,7 +4,7 @@ import Interface from './generators/interface';
 import Props from './generators/props';
 import PreContent from './generators/precontent';
 import PostContent from './generators/postcontent';
-import { InterfaceOptions } from './types';
+import { IComponentOptions, IDirectoryOptions } from './types';
 
 /**
  * Handles options to generte string and create file
@@ -13,8 +13,8 @@ import { InterfaceOptions } from './types';
  * @param path 
  * @param options 
  */
-export const generateComponent = (componentName: string, path: string, options: InterfaceOptions): void => {
-    let { state, typescript, props }: InterfaceOptions = options;
+export const generateComponent = (componentName: string, path: string, options: IComponentOptions): void => {
+    let { state, typescript, props }: IComponentOptions = options;
     state = state || false;
     typescript = typescript || false;
     props = props || false;
@@ -25,9 +25,34 @@ export const generateComponent = (componentName: string, path: string, options: 
     const precontent = new PreContent(state, typescript).getPreContent(componentName);
     const postContent = new PostContent(state).getPostContent();
 
-    const component: string = generateString(imports, interf, prop, precontent, postContent, componentName);
+    const component: string = generateComponentString(imports, interf, prop, precontent, postContent, componentName);
 
-    writeToFile(typescript, path, componentName, component);
+    writeToFile(typescript ? 'tsx' : 'jsx', path, componentName, component);
+}
+
+/**
+ * Handles options to generte directory and create files
+ * 
+ * @param componentName 
+ * @param path 
+ * @param options 
+ */
+export const generateDirectory = (componentName: string, path: string, options: IDirectoryOptions): void => {
+    let { jest, scss } = options;
+    path = path + `/${componentName}`;
+    jest = jest || false;
+    scss = scss || false;
+
+    fs.mkdir(path, { recursive: true }, (err) => {
+        if (err) {
+            console.log('Something went wrong:', err);
+        } else {
+            console.log(`${componentName} directory generated`);
+            writeToFile('jsx', path, componentName, '<div></div>');
+            if (jest) writeToFile('js', path, componentName, '<div>jest-test</div>');
+            if (scss) writeToFile('scss', path, componentName.toLowerCase(), 'div { /* background-color: red; */ }');
+        }
+    });
 }
 
 /**
@@ -38,9 +63,13 @@ export const generateComponent = (componentName: string, path: string, options: 
  * @param componentName 
  * @param component 
  */
-const writeToFile = (isTypescript: boolean, path: string, componentName: string, component: string) => {
-    fs.writeFile(`${path}/${componentName}.${isTypescript ? 'tsx': 'jsx'}`, component, () => {
-        console.log(`${componentName} Generated`);
+const writeToFile = (extension: string, path: string, componentName: string, component: string) => {
+    fs.writeFile(`${path}/${componentName}.${extension}`, component, (err) => {
+        if (err) {
+            console.log('Something went wrong:', err);
+        } else {
+            console.log(`${componentName} Generated`);
+        }
     });
 }
 
@@ -54,10 +83,10 @@ const writeToFile = (isTypescript: boolean, path: string, componentName: string,
  * @param postContent 
  * @param componentName 
  */
-const generateString = (imports: string, interf: string, props: string, preContent: string, postContent: string, componentName: string): string => `
+const generateComponentString = (imports: string, interf: string, props: string, preContent: string, postContent: string, componentName: string): string => `
     ${imports}
     ${interf}
-    const ${componentName} = (${props}) => ${preContent}
+    const ${componentName}${props}) => ${preContent}
         <div>
             ${componentName}
         </div>

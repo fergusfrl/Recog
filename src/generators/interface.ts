@@ -8,11 +8,9 @@ class Interface {
         this.hasProps = hasProps;
     }
 
-    private generateInterface = (name: string, type: string): string => {
-        return `interface I${type}${name} {
+    private generateInterface = (name: string, type: string): string => `interface I${type}${name} {
     // ${type}
-}`
-    }
+}`;
 
     public getInterface = (name: string): string => {
         let result = '';
@@ -21,9 +19,15 @@ class Interface {
         if (this.hasProps) {
             result = this.generateInterface(name, 'Props');
         }
+
         if (this.hasState) {
-            result = result + this.hasProps ? '\n' : '';
-            result = result + this.generateInterface(name, 'State');
+            result = this.generateInterface(name, 'State');
+        }
+
+        if (this.hasProps && this.hasState) {
+            result = this.generateInterface(name, 'Props') +
+                '\n\n' +
+                this.generateInterface(name, 'State');
         }
 
         return result;

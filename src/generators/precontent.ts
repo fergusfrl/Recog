@@ -11,8 +11,8 @@ class PreContent {
             return '(';
         }
         return `{
-        const [state, setState] = useState${this.isTypescript ? `<IState${name}>` : ''}({});
-        return (`
+    const [state, setState] = useState${this.isTypescript ? `<IState${name}>` : ''}({});
+    return (`
     }
 }
 

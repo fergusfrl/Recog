@@ -87,11 +87,8 @@ const writeToFile = (extension: string, path: string, componentName: string, com
  * @param postContent 
  * @param componentName 
  */
-const generateComponentString = (imports: string, interf: string, props: string, preContent: string, content: string, postContent: string, componentName: string): string => `
-${imports}
-
+const generateComponentString = (imports: string, interf: string, props: string, preContent: string, content: string, postContent: string, componentName: string): string => `${imports}
 ${interf}
-
 const ${componentName}${props} => ${preContent}
     ${content}
 ${postContent};

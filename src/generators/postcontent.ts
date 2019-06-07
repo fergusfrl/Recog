@@ -5,7 +5,7 @@ class PostContent {
     }
 
     public getPostContent = () => !this.hasState ? ')' : `\t);
-    }`;
+}`;
 }
 
 export default PostContent;

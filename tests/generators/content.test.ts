@@ -4,14 +4,14 @@ const componentName: string = 'TestComponent';
 
 test('should render content', () => {
     const result: Content = new Content(false);
-    expect(result.getContent(componentName)).toBe(`<div className="${componentName}">
-        ${componentName}
+    expect(result.getContent(componentName)).toBe(`<div className="testcomponent">
+        TestComponent
     </div>`);
 });
 
 test('should render tabbed content', () => {
     const result: Content = new Content(true);
-    expect(result.getContent(componentName)).toBe(`\t<div className="${componentName}">
-        \t${componentName}
+    expect(result.getContent(componentName)).toBe(`\t<div className="testcomponent">
+        \tTestComponent
     \t</div>`);
 });

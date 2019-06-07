@@ -5,7 +5,7 @@ class Content {
     }
 
     public getContent = (name: string): string => {
-        const content = `---<div className="${name}">
+        const content = `---<div className="${name.toLowerCase()}">
         ---${name}
     ---</div>`
 

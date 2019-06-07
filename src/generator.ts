@@ -51,7 +51,7 @@ export const generateDirectory = (componentName: string, path: string, options: 
         if (err) {
             console.log('Something went wrong:', err);
         } else {
-            console.log(`${componentName} directory generated`);
+            console.log(`${componentName} directory was successfully generated`);
             generateComponent(componentName, path, { importScss: scss });
             if (jest) writeToFile('test.js', path, componentName, jestTemplate(componentName));
             if (scss) writeToFile('scss', path, componentName.toLowerCase(), scssTemplate(componentName));
@@ -72,7 +72,7 @@ const writeToFile = (extension: string, path: string, componentName: string, com
         if (err) {
             console.log('Something went wrong:', err);
         } else {
-            console.log(`${componentName}.${extension} Generated`);
+            console.log(`${componentName}.${extension} was successfully created`);
         }
     });
 }

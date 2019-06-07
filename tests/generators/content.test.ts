@@ -9,7 +9,7 @@ test('should render content', () => {
     </div>`);
 });
 
-test('should render tabbed contend', () => {
+test('should render tabbed content', () => {
     const result: Content = new Content(true);
     expect(result.getContent(componentName)).toBe(`\t<div className="${componentName}">
         \t${componentName}

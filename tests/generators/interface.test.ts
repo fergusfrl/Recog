@@ -9,7 +9,7 @@ test('should not render interface without typescript', () => {
 
 test('should not render interfect without props or state', () => {
     const result: Interface = new Interface(true, false, false);
-    expect(result.getInterface(componentName).trim()).toBe('');
+    expect(result.getInterface(componentName)).toBe('');
 });
 
 test('should generate state interface', () => {

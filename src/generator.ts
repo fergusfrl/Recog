@@ -22,7 +22,7 @@ export const generateComponent = (componentName: string, path: string, options: 
     props = props || false;
     importCss = importCss || false;
 
-    const imports = new Imports(state, importCss ? [`import './${componentName.toLowerCase()}.scss'`] : []).getImports();
+    const imports = new Imports(state, importCss ? [`import './${componentName.toLowerCase()}.css'`] : []).getImports();
     const interf = new Interface(typescript, state, props).getInterface(componentName);
     const prop = new Props(props, typescript).getProps(componentName);
     const precontent = new PreContent(state, typescript).getPreContent(componentName);

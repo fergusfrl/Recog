@@ -5,6 +5,7 @@ import Props from './generators/props';
 import PreContent from './generators/precontent';
 import PostContent from './generators/postcontent';
 import { IComponentOptions, IDirectoryOptions } from './types';
+import { jestTemplate, scssTemplate } from './templates';
 
 /**
  * Handles options to generte string and create file
@@ -14,12 +15,13 @@ import { IComponentOptions, IDirectoryOptions } from './types';
  * @param options 
  */
 export const generateComponent = (componentName: string, path: string, options: IComponentOptions): void => {
-    let { state, typescript, props }: IComponentOptions = options;
+    let { state, typescript, props, importScss }: IComponentOptions = options;
     state = state || false;
     typescript = typescript || false;
     props = props || false;
+    importScss = importScss || false;
 
-    const imports = new Imports(state, []).getImports();
+    const imports = new Imports(state, importScss ? [`import './${componentName.toLowerCase()}.scss'`] : []).getImports();
     const interf = new Interface(typescript, state, props).getInterface(componentName);
     const prop = new Props(props, typescript).getProps(componentName);
     const precontent = new PreContent(state, typescript).getPreContent(componentName);
@@ -48,9 +50,9 @@ export const generateDirectory = (componentName: string, path: string, options: 
             console.log('Something went wrong:', err);
         } else {
             console.log(`${componentName} directory generated`);
-            writeToFile('jsx', path, componentName, '<div></div>');
-            if (jest) writeToFile('js', path, componentName, '<div>jest-test</div>');
-            if (scss) writeToFile('scss', path, componentName.toLowerCase(), 'div { /* background-color: red; */ }');
+            generateComponent(componentName, path, { importScss: scss });
+            if (jest) writeToFile('test.js', path, componentName, jestTemplate(componentName));
+            if (scss) writeToFile('scss', path, componentName.toLowerCase(), scssTemplate(componentName));
         }
     });
 }
@@ -68,7 +70,7 @@ const writeToFile = (extension: string, path: string, componentName: string, com
         if (err) {
             console.log('Something went wrong:', err);
         } else {
-            console.log(`${componentName} Generated`);
+            console.log(`${componentName}.${extension} Generated`);
         }
     });
 }
@@ -87,7 +89,7 @@ const generateComponentString = (imports: string, interf: string, props: string,
     ${imports}
     ${interf}
     const ${componentName}${props}) => ${preContent}
-        <div>
+        <div className="${componentName.toLowerCase()}">
             ${componentName}
         </div>
     ${postContent};

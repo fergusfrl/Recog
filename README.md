@@ -49,9 +49,11 @@ Generates a scss file in the new directory
 
 ## Examples
 ### Generate Component
+#### Comand
 ```bash
 $ recog new TestComponent ./components -s -t -p
 ```
+#### Result
 ```javascript
 /* TestComponent.tsx */
 
@@ -78,14 +80,15 @@ export default TestComponent;
 ```
 
 ### Generate Directory
+#### Command
 ```bash
 $ recog dir TestComponent ./components -j -c
 ```
+#### Result
 ```
-./components
-    - TestComponent/
-        - index.js
-        - TestComponent.jsx
-        - TestComponent.test.js
-        - test-component.scss
+|_components
+    |_ TestComponent
+        |_ TestComponent.jsx
+        |_ TestComponent.test.js
+        |_ test-component.scss
 ```

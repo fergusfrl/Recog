@@ -3,7 +3,8 @@ import commander from 'commander';
 export interface IComponentOptions {
     state?: boolean,
     typescript?: boolean,
-    props?: boolean
+    props?: boolean,
+    importScss?: boolean
 }
 
 export interface IDirectoryOptions {

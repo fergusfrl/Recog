@@ -1,4 +1,4 @@
-const componentType: string = ': React.FC';
+const componentType: string = ': React.FC' + true ? `<IProps${"test"}>` : '';
 
 class Props {
     hasProps: boolean;

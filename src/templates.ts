@@ -6,6 +6,6 @@ test('should return a react component', () => {
 `;
 
 export const cssTemplate = (name: string): string => `.${name.toLowerCase()} {
-    // color: red;
+    /* color: red; */
 }
 `;

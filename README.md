@@ -42,8 +42,8 @@ recog dir <ComponentName> <DirectoryPath> [options]
 options:
 - **-j, --jest**<br/>
 Generates a jest test file in the new directory
-- **-c, --scss**<br/>
-Generates a scss file in the new directory
+- **-c, --css**<br/>
+Generates a css file in the new directory
 <br/>
 <br/>
 
@@ -90,5 +90,5 @@ $ recog dir TestComponent ./components -j -c
     |_ TestComponent
         |_ TestComponent.jsx
         |_ TestComponent.test.js
-        |_ test-component.scss
+        |_ test-component.css
 ```

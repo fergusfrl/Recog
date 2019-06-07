@@ -23,6 +23,7 @@ npm link
 <br/>
 
 ## Usage
+### Component
 ```bash
 recog new <ComponentName> <DirectoryPath> [options]
 ```
@@ -34,10 +35,20 @@ Generates a new Typescript React component
 - **-p, --props**<br/>
 Generate a React component with props
 
+### Directory
+```bash
+recog dir <ComponentName> <DirectoryPath> [options]
+```
+options:
+- **-j, --jest**<br/>
+Generates a jest test file in the new directory
+- **-c, --scss**<br/>
+Generates a scss file in the new directory
+<br/>
 <br/>
 
 ## Examples
-### Basic Component
+### Generate Component
 ```bash
 $ recog new TestComponent ./components -s -t -p
 ```
@@ -64,4 +75,17 @@ const TestComponent: React.FC = (props: IPropsTestComponent) => {
 };
 
 export default TestComponent;
+```
+
+### Generate Directory
+```bash
+$ recog dir TestComponent ./components -j -c
+```
+```
+./components
+    - TestComponent/
+        - index.js
+        - TestComponent.jsx
+        - TestComponent.test.js
+        - test-component.scss
 ```

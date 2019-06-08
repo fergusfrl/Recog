@@ -13,7 +13,7 @@ export const handleOptions = (componentName: string, options: IComponentInstatis
     let location = options.dir;
     if (options.folder) {
         // make folder
-        location = location + componentName;
+        location = location + '/' + componentName;
         makeDirectory(location);
     }
 

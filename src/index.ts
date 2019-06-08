@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 import commander from 'commander';
-import { InterfaceCLI } from './types';
-import { generateComponent, generateDirectory } from './generator';
-import { parse } from '@babel/core';
+import { InterfaceCLI, IComponentInstatised } from './types';
+import { handleOptions } from './handler';
 
 class CommandLineInterface {
     cli: InterfaceCLI;
@@ -13,37 +12,28 @@ class CommandLineInterface {
     }
 
     public main(): void {
-        // @ new
-        // CLI for generating componnets
         this.cli
-            .command('new <ComponentName> <Path>')
             .description('generate a new react component')
-            .option('-s, --state', 'generate with state')
-            .option('-t, --typescript', 'generate as typescript')
-            .option('-p, --props', 'generate with props')
-            .action((componentName, path, cmd) => {
-                generateComponent(componentName, path, {
-                    state: cmd.state,
-                    typescript: cmd.typescript,
-                    props: cmd.props
-                });
+            .option('-d, --dir [dir]', 'pecify which directory the component will be generated - default: current working directory')
+            .option('-s, --state', 'generate component with state')
+            .option('-p, --props', 'generate component with props')
+            .option('-t, --typescript', 'generate component as typescript')
+            .option('-f, --folder', 'generate component in a new folder')
+            .option('-j, --jest', 'generate a corrosponding jest test file')
+            .option('-c, --css', 'generate a corrosponding css file')
+            .action((componentName, {
+                // default input values
+                dir="./",
+                state=false,
+                props=false,
+                typescript=false,
+                folder=false,
+                jest=false,
+                css=false
+            }: IComponentInstatised) => {
+                handleOptions(componentName, { dir, state, props, typescript, folder, jest, css });
             });
 
-        // @ dir
-        // CLI for generating directories
-        this.cli
-            .command('dir <ComponentName> <Path>')
-            .description('generates a new directory with a react component')
-            .option('-j, --jest', 'create with jest file')
-            .option('-c, --css', 'create with css file')
-            .action((componentName, path, cmd) => {
-                generateDirectory(componentName, path, {
-                    jest: cmd.jest,
-                    css: cmd.css
-                });
-            });
-
-        // parse arguments
         this.parse();
     }
 

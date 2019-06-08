@@ -4,12 +4,18 @@
 <br/>
 
 ## Installation
+### npm
+```bash
+# coming soon...
+```
+
+### local
 ```bash
 # checkout recog
 git checkout https://github.com/fergusfrl/recog.git
 
 # install dependencies
-npm install -g
+npm install
 
 # transpile typescript
 npm run build
@@ -25,70 +31,90 @@ npm link
 ## Usage
 ### Component
 ```bash
-recog new <ComponentName> <DirectoryPath> [options]
+recog <ComponentName> [options]
 ```
 options:
+- **-d, --dir**<br/>
+Specify a directory to generate the component.<br/>
+_Default Value_: current working directory (CWD), "./"
 - **-s, --state**<br/>
-Generates a new stateful React component
+Generates a new stateful React component.
 - **-t, --typescript**<br/>
-Generates a new Typescript React component
+Generates a new Typescript React component.
 - **-p, --props**<br/>
-Generate a React component with props
-
-### Directory
-```bash
-recog dir <ComponentName> <DirectoryPath> [options]
-```
-options:
+Generate a React component with props.
+- **-f, --folder**<br/>
+Generates a new Folder which will contain the component.<br/>
+Useful in conjunction "--jest" and "-css" commands.
 - **-j, --jest**<br/>
-Generates a jest test file in the new directory
+Generates a new jest test file for the component.
 - **-c, --css**<br/>
-Generates a css file in the new directory
+Generates a new css file for the component.
 <br/>
 <br/>
 
 ## Examples
-### Generate Component
-#### Comand
+### Generate Simple Component
+#### Command
 ```bash
-$ recog new TestComponent ./components -s -t -p
+recog Button
 ```
 #### Result
 ```javascript
-/* TestComponent.tsx */
+/* ./Button.jsx */
+
+import React from 'react';
+
+const Button = () => (
+    <div className="button">
+        Button
+    </div>
+);
+
+export default Button;
+```
+
+### Generate Complex Component
+#### Comand
+```bash
+$ recog Button -d ./components -s -t -p
+```
+#### Result
+```javascript
+/* ./componenst/Button.tsx */
 
 import React, { useState } from 'react';
 
-interface IStateTestComponent {
+interface IStateButton {
     // state interface
 }
 
-interface IPropsTestComponent {
+interface IPropsButton {
     // props interface
 }
 
-const TestComponent: React.FC = (props: IPropsTestComponent) => {
-    const [state, setState] = useState<IStateTestComponent>({});
+const Button: React.FC = (props: IPropsButton) => {
+    const [state, setState] = useState<IStateButton>({});
     return (
         <div>
-            TestComponent
+            Button
         </div>
     );
 };
 
-export default TestComponent;
+export default Button;
 ```
 
-### Generate Directory
+### Generate Additional Files
 #### Command
 ```bash
-$ recog dir TestComponent ./components -j -c
+$ recog Button -f -j -c
 ```
 #### Result
 ```
-|_components
-    |_ TestComponent
-        |_ TestComponent.jsx
-        |_ TestComponent.test.js
-        |_ test-component.css
+|_<current working directory>
+    |_ Button
+        |_ Button.jsx
+        |_ Button.test.js
+        |_ button.css
 ```

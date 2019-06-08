@@ -1,18 +1,25 @@
 import commander from 'commander';
 
-export interface IComponentOptions {
+export interface IComponentOptional {
+    dir?: string,
     state?: boolean,
-    typescript?: boolean,
     props?: boolean,
-    importCss?: boolean
-}
-
-export interface IDirectoryOptions {
+    typescript?: boolean,
+    folder?: boolean,
     jest?: boolean,
     css?: boolean
 }
 
-export interface InterfaceCLI extends commander.Command, IComponentOptions, IDirectoryOptions {
-    ComponentName?: string,
-    Path?: string
+export interface IComponentInstatised {
+    dir: string,
+    state: boolean,
+    props: boolean,
+    typescript: boolean,
+    folder: boolean,
+    jest: boolean,
+    css: boolean
+}
+
+export interface InterfaceCLI extends commander.Command, IComponentOptional {
+    ComponentName?: string
 }

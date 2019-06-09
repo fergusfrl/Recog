@@ -6,7 +6,7 @@
 ## Installation
 ### npm
 ```bash
-# coming soon...
+npm install -g recog
 ```
 
 ### local

@@ -1,7 +1,7 @@
 {
   "name": "recog",
   "version": "1.0.0",
-  "description": "Command Line Interface for generating React Components",
+  "description": "A lightweight Command Line Interface for generating React Components on the fly",
   "repository": {
     "url": "https://github.com/fergusfrl/Recog"
   },
@@ -20,8 +20,12 @@
     "test-with-coverage": "jest --coverage"
   },
   "keywords": [
-    "React", "CLI", "Component", "Bootstrap",
-    "Generator", "Command Line Interface",
+    "React",
+    "CLI",
+    "Component",
+    "Bootstrap",
+    "Generator",
+    "Command Line Interface",
     "Creator"
   ],
   "author": "Fergus Farrell",

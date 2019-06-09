@@ -7,13 +7,18 @@ import PreContent from './generators/precontent';
 import Content from './generators/content';
 import PostContent from './generators/postcontent';
 import { IComponentInstatised } from './types';
-import { jestTemplate, cssTemplate } from './templates';
+import { reactTemplate, jestTemplate, cssTemplate } from './templates';
 
 export const handleOptions = (componentName: string, options: IComponentInstatised): void => {
     let location = options.dir;
+    if (!fs.existsSync(location)) {
+        console.log(chalk.default.red(`Directory "${location}" does not exist. Please provide a valid directory.`));
+        return;
+    }
+
     if (options.folder) {
         // make folder
-        location = location + '/' + componentName;
+        location = location + componentName;
         makeDirectory(location);
     }
 
@@ -34,6 +39,11 @@ export const handleOptions = (componentName: string, options: IComponentInstatis
 }
 
 const makeDirectory = async (location: string) => {
+    if (fs.existsSync(location)) {
+        console.log(chalk.default.red(`Directory "${location}" already exists. Please consider changing the components name.`));
+        return;
+    }
+
     await fs.mkdir(location, { recursive: true }, (err) => {
         if (err) {
             console.log(chalk.default.red("Something went wrong generating a folder:"));
@@ -46,6 +56,11 @@ const makeDirectory = async (location: string) => {
 
 const makeFile = (location: string, content: string, fileName: string): void => {
     const file = `${location}/${fileName}`
+    if (fs.existsSync(file)) {
+        console.log(chalk.default.red(`File "${file}" already exists. Please consider changing the components name.`));
+        return;
+    }
+
     fs.writeFile(file, content, (err) => {
         if (err) {
             console.log(chalk.default.red("Something went wrong generating file:", file));
@@ -64,12 +79,5 @@ const createComponentContent = (componentName: string, state: boolean, props: bo
     const content = new Content(state).getContent(componentName);
     const postContent = new PostContent(state).getPostContent();
 
-   return`${imports}
-${interf}
-const ${componentName}${prop} => ${precontent}
-    ${content}
-${postContent};
-
-export default ${componentName};
-`;
+   return reactTemplate(imports, interf, componentName, prop, precontent, content, postContent);
 }

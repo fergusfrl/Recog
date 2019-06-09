@@ -1,6 +1,6 @@
 {
   "name": "recog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight Command Line Interface for generating React Components on the fly",
   "repository": {
     "url": "https://github.com/fergusfrl/Recog"

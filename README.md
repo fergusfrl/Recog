@@ -77,11 +77,11 @@ export default Button;
 ### Generate Complex Component
 #### Comand
 ```bash
-$ recog Button -d ./components -s -t -p
+$ recog Button -d ./components --state --typescript --props
 ```
 #### Result
 ```javascript
-/* ./componenst/Button.tsx */
+/* ./components/Button.tsx */
 
 import React, { useState } from 'react';
 
@@ -108,7 +108,7 @@ export default Button;
 ### Generate Additional Files
 #### Command
 ```bash
-$ recog Button -f -j -c
+$ recog Button --folder --jest --css
 ```
 #### Result
 ```

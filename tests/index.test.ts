@@ -2,62 +2,57 @@ const path = require('path');
 const exec = require('child_process').exec;
 import * as fs from 'fs';
 
-// new command
-test('Should create component', async () => {
-    const result: any = await CLI('new TestComponent ./', []);
+test('Should create jxs component', async () => {
+    const result: any = await CLI('TestComponent', []);
     expect(result.code).toBe(0);
     expect(fs.existsSync('./TestComponent.jsx')).toBe(true);
 });
 
-test('Should create typescript component', async () => {
-    const result: any = await CLI('new TestComponent ./', ['-t']);
+test('Should create tsx component', async () => {
+    const result: any = await CLI('TestComponent', ['-t']);
     expect(result.code).toBe(0);
     expect(fs.existsSync('./TestComponent.tsx')).toBe(true);
 });
 
-test('Should create stateful component', async () => {
-    const result: any = await CLI('new TestComponent ./', ['-s']);
-    expect(result.code).toBe(0);
-    expect(fs.existsSync('./TestComponent.jsx')).toBe(true);
-});
-
-test('Should create stateful typescript component', async () => {
-    const result: any = await CLI('new TestComponent ./', ['-t -s']);
-    expect(result.code).toBe(0);
-    expect(fs.existsSync('./TestComponent.tsx')).toBe(true);
-});
-
-// dir command
-test('Should create a new folder', async () => {
-    const result: any = await CLI('dir TestComponent ./', []);
+test('Should create jsx component in new folder', async () => {
+    const result: any = await CLI('TestComponent', ['-f']);
     expect(result.code).toBe(0);
     expect(fs.existsSync('./TestComponent/TestComponent.jsx')).toBe(true);
-    expect(fs.existsSync('./TestComponent/TestComponent.test.js')).toBe(false);
-    expect(fs.existsSync('./TestComponent/testcomponent.css')).toBe(false);
 });
 
-test('Should create a new folder with a jest file', async () => {
-    const result: any = await CLI('dir TestComponent ./', ['-j']);
+test('Should create tsx component in new folder', async () => {
+    const result: any = await CLI('TestComponent', ['-f', '-t']);
+    expect(result.code).toBe(0);
+    expect(fs.existsSync('./TestComponent/TestComponent.tsx')).toBe(true);
+});
+
+test('Should create jest test file with component', async () => {
+    const result: any = await CLI('TestComponent', ['-j', '-f']);
     expect(result.code).toBe(0);
     expect(fs.existsSync('./TestComponent/TestComponent.jsx')).toBe(true);
     expect(fs.existsSync('./TestComponent/TestComponent.test.js')).toBe(true);
-    expect(fs.existsSync('./TestComponent/testcomponent.css')).toBe(false);
 });
 
-test('Should create a new folder with a css file', async () => {
-    const result: any = await CLI('dir TestComponent ./', ['-c']);
+test('Should create css file with component', async () => {
+    const result: any = await CLI('TestComponent', ['-c', '-f']);
     expect(result.code).toBe(0);
     expect(fs.existsSync('./TestComponent/TestComponent.jsx')).toBe(true);
-    expect(fs.existsSync('./TestComponent/TestComponent.test.js')).toBe(false);
-    expect(fs.existsSync('./TestComponent/testcomponent.css')).toBe(false);
+    expect(fs.existsSync('./TestComponent/testcomponent.css')).toBe(true);
 });
 
-test('Should create a new folder with a jest file and a css file', async () => {
-    const result: any = await CLI('dir TestComponent ./', ['-j', '-c']);
+test('Should create jest test and css file with component', async () => {
+    const result: any = await CLI('TestComponent', ['-j', '-c', '-f']);
     expect(result.code).toBe(0);
     expect(fs.existsSync('./TestComponent/TestComponent.jsx')).toBe(true);
     expect(fs.existsSync('./TestComponent/TestComponent.test.js')).toBe(true);
-    expect(fs.existsSync('./TestComponent/testcomponent.css')).toBe(false);
+    expect(fs.existsSync('./TestComponent/testcomponent.css')).toBe(true);
+});
+
+test('Should create react component at directory provided', async () => {
+    fs.mkdirSync('NewDirectory');
+    const result: any = await CLI('TestComponent', ['-d NewDirectory']);
+    expect(result.code).toBe(0);
+    expect(fs.existsSync('./NewDirectory/TestComponent.jsx')).toBe(true);
 });
 
 const CLI = (command: string, args: string[]) => {
@@ -78,15 +73,24 @@ const CLI = (command: string, args: string[]) => {
 afterEach(() => {
     const removeFiles = [
         './TestComponent.jsx',
-        'TestComponent.tsx',
+        './TestComponent.tsx',
         'TestComponent/TestComponent.jsx',
+        'TestComponent/TestComponent.tsx',
         'TestComponent/TestComponent.test.js',
-        'TestComponent/testcomponent.scss'
+        'TestComponent/testcomponent.css',
+        'NewDirectory/TestComponent.jsx'
+    ];
+
+    const removeDirs = [
+        'TestComponent',
+        'NewDirectory'
     ];
 
     removeFiles.forEach(file => {
         fs.unlink(file, () => {});
     });
 
-    fs.rmdir('TestComponent', () => {});
+    removeDirs.forEach(dir => {
+        fs.rmdir(dir, () => {});
+    });
 });
